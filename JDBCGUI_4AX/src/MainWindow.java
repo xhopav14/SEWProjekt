@@ -204,9 +204,9 @@ public class MainWindow extends javax.swing.JFrame {
                                     .addComponent(btnAddTeam, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnUpdateTeam, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnLinks, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnRechts, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnRechts, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btnLinks, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,9 +440,10 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void btnUpdateTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateTeamActionPerformed
         try{
+            
             stmt_upt.setString(1, txtName.getText());
             stmt_upt.setInt(2, Integer.parseInt(txtCups.getText()));
-            
+            stmt_upt.setInt(3, Integer.parseInt(txtID.getText()));
            
             //stmt_add.executeUpdate();
             int rows_changed = stmt_upt.executeUpdate();
