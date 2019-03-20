@@ -51,17 +51,20 @@
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnClear" max="32767" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnDeleteTeam" alignment="1" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnLinks" min="-2" pref="48" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnRechts" min="-2" pref="49" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="btnClear" min="-2" pref="78" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="btnAddTeam" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="btnUpdateTeam" alignment="1" pref="137" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Component id="btnAddTeam" alignment="1" max="32767" attributes="0"/>
-                          <Component id="btnUpdateTeam" alignment="1" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="btnLinks" min="-2" pref="59" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnRechts" min="-2" pref="58" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Component id="jSeparator1" alignment="0" pref="480" max="32767" attributes="0"/>
@@ -75,9 +78,9 @@
                           <Component id="txtPort" max="32767" attributes="0"/>
                           <Component id="txtServer" pref="70" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -102,11 +105,16 @@
                                   <Component id="btnConnect" min="-2" pref="97" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="txtLaLiga" min="-2" pref="52" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                              <Component id="txtLaLiga" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnDeleteTeam" min="-2" pref="135" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -164,9 +172,6 @@
                           <Component id="btnRechts" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnLinks" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnDeleteTeam" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="35" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
@@ -186,10 +191,12 @@
                           <Component id="txtCups" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblCountryCode" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="82" max="32767" attributes="0"/>
-                      <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="btnDeleteTeam" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="25" max="32767" attributes="0"/>
+              <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -276,11 +283,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Clear"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClearActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JToggleButton" name="btnRechts">
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRechtsActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JToggleButton" name="btnLinks">
       <Properties>
@@ -309,11 +322,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Update Team"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateTeamActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JToggleButton" name="btnDeleteTeam">
       <Properties>
         <Property name="text" type="java.lang.String" value="Delete Team"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteTeamActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDatenbank">
       <Properties>
@@ -329,8 +348,11 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtLaLiga">
       <Properties>
-        <Property name="text" type="java.lang.String" value="La Liga"/>
+        <Property name="text" type="java.lang.String" value="  La Liga"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLaLigaActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

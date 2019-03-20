@@ -16,6 +16,9 @@ public class MainWindow extends javax.swing.JFrame {
         Connection con=null;
         PreparedStatement stmt_selectAll = null;
         ResultSet res_selectAll = null;
+        PreparedStatement stmt_add = null;
+        PreparedStatement stmt_del = null;
+        PreparedStatement stmt_upt = null;
     /**
      * Creates new form MainWindow
      */
@@ -116,8 +119,18 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         btnRechts.setText("<");
+        btnRechts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRechtsActionPerformed(evt);
+            }
+        });
 
         btnLinks.setText(">");
         btnLinks.addActionListener(new java.awt.event.ActionListener() {
@@ -133,14 +146,29 @@ public class MainWindow extends javax.swing.JFrame {
         lblPassword.setText("Password");
 
         btnUpdateTeam.setText("Update Team");
+        btnUpdateTeam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateTeamActionPerformed(evt);
+            }
+        });
 
         btnDeleteTeam.setText("Delete Team");
+        btnDeleteTeam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteTeamActionPerformed(evt);
+            }
+        });
 
         txtDatenbank.setText("SEWProjekt");
 
         txtUsername.setText("root");
 
-        txtLaLiga.setText("La Liga");
+        txtLaLiga.setText("  La Liga");
+        txtLaLiga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLaLigaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -168,16 +196,17 @@ public class MainWindow extends javax.swing.JFrame {
                                     .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                                     .addComponent(txtID))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnDeleteTeam, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnLinks, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnRechts, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnAddTeam, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnUpdateTeam, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnAddTeam, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnUpdateTeam, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnLinks, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnRechts, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,9 +216,9 @@ public class MainWindow extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtPort)
                             .addComponent(txtServer, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
-                        .addGap(78, 78, 78)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(78, 78, 78)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,8 +237,12 @@ public class MainWindow extends javax.swing.JFrame {
                                     .addComponent(btnDisconnect, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtLaLiga, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(70, 70, 70)
+                                .addComponent(txtLaLiga, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnDeleteTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -252,10 +285,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnRechts)
-                            .addComponent(btnLinks))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDeleteTeam)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnLinks)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -270,9 +300,11 @@ public class MainWindow extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtCups, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCountryCode))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblCountryCode))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDeleteTeam)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -287,6 +319,8 @@ public class MainWindow extends javax.swing.JFrame {
                     "root", "");
             btnConnect.setEnabled(false);
             txtServer.setEnabled(false);
+            txtDatenbank.setEnabled(false);
+            txtLaLiga.setEnabled(false);
             btnDisconnect.setEnabled(true);
         }catch(SQLException ex){
                 System.out.println("Verbindung mit dem Datenbankserver." + "konnte nicht hergestellt werden!");
@@ -295,6 +329,9 @@ public class MainWindow extends javax.swing.JFrame {
          // SQL SELECT for all entries
         try{
     stmt_selectAll = con.prepareStatement("SELECT * FROM laliga");
+    stmt_add = con.prepareStatement("INSERT INTO laliga (Name, Cups) VALUES (?, ?)");
+    stmt_upt = con.prepareStatement("UPDATE laliga SET Name = ?, Cups = ? WHERE ID = ?");
+    stmt_del = con.prepareStatement("DELETE FROM laliga WHERE ID = ?");
     res_selectAll = stmt_selectAll.executeQuery();
     
     if (res_selectAll.next()){
@@ -319,6 +356,8 @@ public class MainWindow extends javax.swing.JFrame {
         try{
             con.close();
             
+            txtDatenbank.setEnabled(true);
+            txtLaLiga.setEnabled(true);
             btnConnect.setEnabled(true);
             txtServer.setEnabled(true);
             btnDisconnect.setEnabled(false);
@@ -329,7 +368,23 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDisconnectActionPerformed
 
     private void btnAddTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTeamActionPerformed
-        // TODO add your handling code here:
+       try{
+           stmt_add.setInt(1, Integer.parseInt(txtID.getText())); 
+           stmt_add.setString(2, txtName.getText());
+           stmt_add.setInt(3, Integer.parseInt(txtCups.getText()));
+            
+
+            int rows_changed = stmt_add.executeUpdate();
+            if(rows_changed > 0){
+                javax.swing.JOptionPane.showMessageDialog(this, "Successful");
+            }else{
+                javax.swing.JOptionPane.showMessageDialog(this, "Not Successful");
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            System.out.println("Not Successful");
+            javax.swing.JOptionPane.showMessageDialog(this, "Not Successful");
+        }
     }//GEN-LAST:event_btnAddTeamActionPerformed
 
     private void txtCupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCupsActionPerformed
@@ -356,6 +411,70 @@ public class MainWindow extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Select konnte nicht gemacht werden");
     }   
     }//GEN-LAST:event_btnLinksActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        txtID.setText("");
+        txtName.setText("");
+        txtCups.setText("");
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void txtLaLigaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLaLigaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLaLigaActionPerformed
+
+    private void btnDeleteTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteTeamActionPerformed
+        try{
+            stmt_del.setInt(1, Integer.parseInt(txtID.getText()));
+            int rows_changed = stmt_del.executeUpdate();
+            res_selectAll = stmt_selectAll.executeQuery();
+            if(rows_changed > 0){
+                javax.swing.JOptionPane.showMessageDialog(this, "Deleted!");
+            }else{
+                javax.swing.JOptionPane.showMessageDialog(this, "Not Deleted!");
+            }  
+        }catch(SQLException ex) {
+            System.out.println("Not Deleted!");    
+            javax.swing.JOptionPane.showMessageDialog(this, "Not Deleted!");
+        }
+    }//GEN-LAST:event_btnDeleteTeamActionPerformed
+
+    private void btnUpdateTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateTeamActionPerformed
+        try{
+            stmt_upt.setString(1, txtName.getText());
+            stmt_upt.setInt(2, Integer.parseInt(txtCups.getText()));
+            
+           
+            //stmt_add.executeUpdate();
+            int rows_changed = stmt_upt.executeUpdate();
+            res_selectAll = stmt_selectAll.executeQuery();
+            if(rows_changed > 0){
+                javax.swing.JOptionPane.showMessageDialog(this, "Updated!");
+            }else{
+                javax.swing.JOptionPane.showMessageDialog(this, "Not Updated!");
+            }    
+        }catch(SQLException ex) {
+            System.out.println("Not Updated!");    
+            javax.swing.JOptionPane.showMessageDialog(this, "Not Updated!");
+        }
+    }//GEN-LAST:event_btnUpdateTeamActionPerformed
+
+    private void btnRechtsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechtsActionPerformed
+        try{
+            if(res_selectAll.previous()){
+                int id = res_selectAll.getInt("ID");
+                String name = res_selectAll.getString("Name");
+                String cups = res_selectAll.getString("Cups");
+                txtID.setText(""+id);
+                txtName.setText(name);
+                txtCups.setText(cups); 
+            }else{
+                res_selectAll.afterLast();
+            }
+        }catch(SQLException ex){
+            System.out.println("SELECT konnte nicht gemacht werden");
+            javax.swing.JOptionPane.showMessageDialog(this, "SELECT konnte nicht gemacht werden");
+        }          
+    }//GEN-LAST:event_btnRechtsActionPerformed
 
     /**
      * @param args the command line arguments
