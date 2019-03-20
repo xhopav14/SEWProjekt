@@ -369,9 +369,9 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void btnAddTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTeamActionPerformed
        try{
-           stmt_add.setInt(1, Integer.parseInt(txtID.getText())); 
-           stmt_add.setString(2, txtName.getText());
-           stmt_add.setInt(3, Integer.parseInt(txtCups.getText()));
+           //stmt_add.setInt(1, Integer.parseInt(txtID.getText())); 
+           stmt_add.setString(1, txtName.getText());
+           stmt_add.setInt(2, Integer.parseInt(txtCups.getText()));
             
 
             int rows_changed = stmt_add.executeUpdate();
