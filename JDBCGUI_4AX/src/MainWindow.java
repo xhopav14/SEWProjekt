@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  * @author xhopav14
  */
 public class MainWindow extends javax.swing.JFrame {
-        
+        //Variablen deklarieren
         Connection con=null;
         PreparedStatement stmt_selectAll = null;
         ResultSet res_selectAll = null;
@@ -24,12 +24,12 @@ public class MainWindow extends javax.swing.JFrame {
      */
     public MainWindow() {
         initComponents();
-        
+        //Driver implementiert
         try {
-            //Datenbantreiber laden
+            
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
-            System.out.println("Datenbank konnte nicht geladen werden!");
+            System.out.println("Driver konnte nicht geladen werden!");
             javax.swing.JOptionPane.showMessageDialog(this, "Datenbank konnte nicht geladen werden!");
             System.exit(1);
         }
@@ -312,7 +312,7 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
-
+        //Mit dem Server verbinden
         try{
             con = DriverManager.getConnection(
                     "jdbc:mysql://"+txtServer.getText()+":3306/sewprojekt",
@@ -323,16 +323,16 @@ public class MainWindow extends javax.swing.JFrame {
             txtLaLiga.setEnabled(false);
             btnDisconnect.setEnabled(true);
         }catch(SQLException ex){
-                System.out.println("Verbindung mit dem Datenbankserver." + "konnte nicht hergestellt werden!");
+                System.out.println("Verbindung mit dem Datenbankserver konnte nicht hergestellt werden!");
                 javax.swing.JOptionPane.showMessageDialog(this, "Verbindung konnte nicht hergestellt werden");
         }
-         // SQL SELECT for all entries
+         // Prepared Statements fur die Tabelle, insert, update und delete 
         try{
     stmt_selectAll = con.prepareStatement("SELECT * FROM laliga");
     stmt_add = con.prepareStatement("INSERT INTO laliga (Name, Cups) VALUES (?, ?)");
     stmt_upt = con.prepareStatement("UPDATE laliga SET Name = ?, Cups = ? WHERE ID = ?");
     stmt_del = con.prepareStatement("DELETE FROM laliga WHERE ID = ?");
-    res_selectAll = stmt_selectAll.executeQuery();
+    res_selectAll = stmt_selectAll.executeQuery();//Execute die select Statement
     
     if (res_selectAll.next()){
         int id = res_selectAll.getInt("ID");
@@ -354,6 +354,7 @@ public class MainWindow extends javax.swing.JFrame {
     
     private void btnDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisconnectActionPerformed
         try{
+            //Verbindung schliessen
             con.close();
             
             txtDatenbank.setEnabled(true);
@@ -369,11 +370,11 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void btnAddTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTeamActionPerformed
        try{
-           //stmt_add.setInt(1, Integer.parseInt(txtID.getText())); 
+           //Die Code fur die Add Taster -> Insert
            stmt_add.setString(1, txtName.getText());
            stmt_add.setInt(2, Integer.parseInt(txtCups.getText()));
             
-
+            //Wir machen eine execute fuer diese Prepared Statement und schauen ob es funktioniert.
             int rows_changed = stmt_add.executeUpdate();
             if(rows_changed > 0){
                 javax.swing.JOptionPane.showMessageDialog(this, "Successful");
@@ -392,6 +393,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCupsActionPerformed
 
     private void btnLinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLinksActionPerformed
+        //Wenn wir diesen Taster klicken, dann werden wir die nachste Zeile lesen und ausgeben
         try{
     if (res_selectAll.next()){
         int id = res_selectAll.getInt("ID");
@@ -404,6 +406,7 @@ public class MainWindow extends javax.swing.JFrame {
         txtCups.setText(cc);
         
     }else {
+        //Wir gehen in die erste Zeile noch einmal
         res_selectAll.beforeFirst();
     }
     }catch(SQLException ex){
@@ -413,6 +416,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLinksActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        //Macht alle 3 Felder leer
         txtID.setText("");
         txtName.setText("");
         txtCups.setText("");
@@ -424,6 +428,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void btnDeleteTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteTeamActionPerformed
         try{
+            //Delete Taster geklickt, loscht die Zeile und schauen ob es funktioniert
             stmt_del.setInt(1, Integer.parseInt(txtID.getText()));
             int rows_changed = stmt_del.executeUpdate();
             res_selectAll = stmt_selectAll.executeQuery();
@@ -440,12 +445,12 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void btnUpdateTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateTeamActionPerformed
         try{
-            
+            //Wenn wir Update machen wollen und schauen ob es funktioniert
             stmt_upt.setString(1, txtName.getText());
             stmt_upt.setInt(2, Integer.parseInt(txtCups.getText()));
             stmt_upt.setInt(3, Integer.parseInt(txtID.getText()));
            
-            //stmt_add.executeUpdate();
+            
             int rows_changed = stmt_upt.executeUpdate();
             res_selectAll = stmt_selectAll.executeQuery();
             if(rows_changed > 0){
@@ -461,6 +466,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void btnRechtsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechtsActionPerformed
         try{
+            //Wenn wir zuruck gehen wollen, beim lesen der Zeilen
             if(res_selectAll.previous()){
                 int id = res_selectAll.getInt("ID");
                 String name = res_selectAll.getString("Name");
@@ -469,6 +475,7 @@ public class MainWindow extends javax.swing.JFrame {
                 txtName.setText(name);
                 txtCups.setText(cups); 
             }else{
+                //Gehen wir in der letzten Zeile
                 res_selectAll.afterLast();
             }
         }catch(SQLException ex){
